@@ -8,8 +8,8 @@ public class Fractal {
     public static void main(String[] args) {
         int width = 2048/2;
         int height = 1536/2;
-        int min = 9;
-        int max = 999999999;
+        int min = 9999999/5;
+        int max = 99999999/5;
         Random random = new Random();
         
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -17,7 +17,16 @@ public class Fractal {
             int wild1 = random.nextInt(max - min + 1) + min;
             for (int y = 0; y < height; y++) {
                 int wild2 = random.nextInt(max - min + 1) + min;
-                image.setRGB(x, y, (x-y-wild1+wild1)*(x+y+wild2-wild2)&(wild1|wild2)); 
+                image.setRGB(x, y, (x*y)*(x+y)&(wild1*wild2*x*y)); 
+                if(x % 5 == 1){
+                    //image.setRGB(x, y, (wild1|wild2)); 
+                    image.setRGB(x, y, 0);
+                }else if (y % 2 == 0){
+                    image.setRGB(x, y, (x*y)*(x+y)); 
+                   // image.setRGB(x, y, 0);
+                }else{
+                    image.setRGB(x, y, 69696969);
+                }
             }
         }
         int name = random.nextInt(max - min + 1) + min;
